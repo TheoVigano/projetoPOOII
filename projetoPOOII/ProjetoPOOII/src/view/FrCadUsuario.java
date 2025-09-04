@@ -5,6 +5,11 @@
  */
 package view;
 
+import controller.UsuarioController;
+import javax.swing.JOptionPane;
+import model.Usuario;
+import utils.Util;
+
 public class FrCadUsuario extends javax.swing.JDialog {
 
     /**
@@ -29,16 +34,18 @@ public class FrCadUsuario extends javax.swing.JDialog {
         lblCadastro = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblSenha = new javax.swing.JLabel();
+        lblConfirmarSenha = new javax.swing.JLabel();
         lblDataNascimento = new javax.swing.JLabel();
         edtNome = new javax.swing.JTextField();
         edtEmail = new javax.swing.JTextField();
         edtDataNascimento = new javax.swing.JFormattedTextField();
-        edtSenha = new javax.swing.JTextField();
         chkAtivo = new javax.swing.JCheckBox();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        edtSenha = new javax.swing.JPasswordField();
+        lblSenha1 = new javax.swing.JLabel();
+        edtConfirmarSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,9 +64,9 @@ public class FrCadUsuario extends javax.swing.JDialog {
         lblEmail.setForeground(new java.awt.Color(204, 204, 204));
         lblEmail.setText("E-mail");
 
-        lblSenha.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
-        lblSenha.setForeground(new java.awt.Color(204, 204, 204));
-        lblSenha.setText("Senha");
+        lblConfirmarSenha.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
+        lblConfirmarSenha.setForeground(new java.awt.Color(204, 204, 204));
+        lblConfirmarSenha.setText("Confirme a senha");
 
         lblDataNascimento.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         lblDataNascimento.setForeground(new java.awt.Color(204, 204, 204));
@@ -71,8 +78,11 @@ public class FrCadUsuario extends javax.swing.JDialog {
 
         edtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
         edtDataNascimento.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
-
-        edtSenha.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        edtDataNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDataNascimentoActionPerformed(evt);
+            }
+        });
 
         chkAtivo.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         chkAtivo.setText("Ativo");
@@ -80,12 +90,30 @@ public class FrCadUsuario extends javax.swing.JDialog {
         btnCancelar.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/x.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         btnSalvar.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save.png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseClicked(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
+
+        edtSenha.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+
+        lblSenha1.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
+        lblSenha1.setForeground(new java.awt.Color(204, 204, 204));
+        lblSenha1.setText("Senha");
+
+        edtConfirmarSenha.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
@@ -95,26 +123,28 @@ public class FrCadUsuario extends javax.swing.JDialog {
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(jLabel2))
+                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblDataNascimento)
-                            .addComponent(lblSenha)
-                            .addComponent(lblEmail)
-                            .addComponent(lblNome)
+                            .addComponent(lblSenha1)
                             .addComponent(edtNome)
                             .addComponent(edtEmail)
                             .addComponent(edtSenha)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
                                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnCancelar)
+                                    .addComponent(lblDataNascimento)
                                     .addComponent(edtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(chkAtivo)
-                                    .addComponent(btnSalvar)))))
-                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel2)))
+                                    .addComponent(btnSalvar)))
+                            .addComponent(lblConfirmarSenha)
+                            .addComponent(lblEmail)
+                            .addComponent(lblNome)
+                            .addComponent(edtConfirmarSenha))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         pnlPrincipalLayout.setVerticalGroup(
@@ -132,17 +162,21 @@ public class FrCadUsuario extends javax.swing.JDialog {
                 .addComponent(lblEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSenha)
+                .addGap(18, 18, 18)
+                .addComponent(lblSenha1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(lblConfirmarSenha)
+                .addGap(4, 4, 4)
+                .addComponent(edtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblDataNascimento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkAtivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
@@ -157,11 +191,95 @@ public class FrCadUsuario extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
+        gravar();
+    }//GEN-LAST:event_btnSalvarMouseClicked
+
+    private void edtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDataNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtDataNascimentoActionPerformed
+    
+    private void gravar() {
+        if (!verificarCampos()) {
+            return;
+        }
+        Usuario usu = new Usuario();
+        usu.setNome(edtNome.getText());
+        usu.setEmail(edtEmail.getText());
+        usu.setSenha(Util.calcularHash(new String(edtSenha.getPassword())));
+        usu.setDataNascimento(Util.converterStringToDate(edtDataNascimento.getText()));
+        usu.setAtivo(chkAtivo.isSelected());
+        
+        UsuarioController controller = new UsuarioController();
+        if(controller.inserir(usu)){
+            JOptionPane.showMessageDialog(null, "Usuário inserido");
+            this.dispose();
+        }
+    }
+    
+    private boolean verificarCampos() {
+        if (edtNome.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'nome' em branco");
+            return false;
+        }
+        if (edtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'email' em branco");
+            return false;
+        }
+        if (new String(edtSenha.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digite uma senha válida");
+            return false;
+        }
+        
+        //^ - Inicio de linha
+        //$ - final de linha
+        //[] - conjunto de caracteres
+        //+ - quantidades de vezes que o conjunto pode aparecer
+        //+ - 1 ou mais vezes
+        //{5} - 5 vezes
+        //{2} - 2 vezes
+        if (!edtNome.getText().matches("^[\\p{L}]+$")) {
+            JOptionPane.showMessageDialog(null, "O campo 'nome' não possui o formato");
+            return false;
+        }
+        
+        if (!edtEmail.getText().matches("^[a-z0-9_.]+@[a-z0-9]_.]+.[a-z]+$")) {
+            JOptionPane.showMessageDialog(null, "O campo 'email' não possui o formato");
+            return false;
+        }
+        
+        if (!edtDataNascimento.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")) {
+            JOptionPane.showMessageDialog(null, "Data inválida!");
+            return false;
+        }
+        if (new String(edtSenha.getPassword()).length() < 6) {
+            JOptionPane.showMessageDialog(null, "A senha deve ser maior que 6 digitos");
+            return false;
+        }
+        
+        String senha = new String(edtSenha.getPassword());
+        String confimaSenha = new String(edtConfirmarSenha.getPassword());
+        if (!senha.equals(confimaSenha)) {
+            JOptionPane.showMessageDialog(null, "A senhas devem ser iguais");
+            return false;
+        }
+
+        
+        return true;
+        
+    }
 
     /**
      * @param args the command line arguments
@@ -209,16 +327,18 @@ public class FrCadUsuario extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chkAtivo;
+    private javax.swing.JPasswordField edtConfirmarSenha;
     private javax.swing.JFormattedTextField edtDataNascimento;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtNome;
-    private javax.swing.JTextField edtSenha;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblCadastro;
+    private javax.swing.JLabel lblConfirmarSenha;
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblSenha1;
     private javax.swing.JPanel pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 }

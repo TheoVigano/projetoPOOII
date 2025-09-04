@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import model.Usuario;
 
 public class UsuarioController {
 
@@ -52,7 +53,38 @@ public class UsuarioController {
         } finally {
             gerenciador.fecharConexao(comando, resultado);
         }
-        
+
+        return false;
+    }
+
+    public boolean inserir(Usuario usu) {
+        String sql = "INSERT INTO TBUSUARIO (nome, email, senha, datanasc)" + " VALUES (?,?,?,?,?)";
+
+        GerenciadorConexao gerenciador = new GerenciadorConexao();
+
+        PreparedStatement comando = null;
+
+        try {
+
+            comando = gerenciador.prepararComando(sql);
+
+            //define o valor de cada variavel(?)
+            comando.setString(1, usu.getNome());
+            comando.setString(2, usu.getEmail());
+            comando.setString(3, usu.getSenha());
+            comando.setDate(4, new java.sql.Date(usu.getDataNascimento().getTime()));
+            comando.setBoolean(5, usu.isAtivo());
+
+            comando.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        } finally {
+            gerenciador.fecharConexao(comando);
+        }
+
         return false;
     }
 }
