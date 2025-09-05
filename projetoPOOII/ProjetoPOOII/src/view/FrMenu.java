@@ -97,6 +97,11 @@ public class FrMenu extends javax.swing.JFrame {
         mnConsultar.setText("Consultar");
 
         miConUsuario.setText("Usuário");
+        miConUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConUsuarioActionPerformed(evt);
+            }
+        });
         mnConsultar.add(miConUsuario);
 
         jMenuItem3.setText("???");
@@ -136,6 +141,11 @@ public class FrMenu extends javax.swing.JFrame {
         FrCadUsuario telaCadUsuario = new FrCadUsuario(this, rootPaneCheckingEnabled);
         telaCadUsuario.setVisible(true);
     }//GEN-LAST:event_miUsuarioActionPerformed
+
+    private void miConUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConUsuarioActionPerformed
+        FrConUsuario telaConUsuario = new FrConUsuario(this, rootPaneCheckingEnabled);
+        telaConUsuario.setVisible(true);
+    }//GEN-LAST:event_miConUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

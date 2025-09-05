@@ -1,35 +1,40 @@
-
 package model;
 
 import java.util.Date;
 
+/**
+ * Representa um usuário do sistema.
+ */
 public class Usuario {
-    private int pkUsuario;
-    private String nome;
-    private String email;
-    private String senha;
-    private Date dataNascimento;
-    private boolean ativo;
-    
-    public Usuario(){
-        
+
+    private int pkusuario;         // Chave primária
+    private String nome;           // Nome completo
+    private String email;          // E-mail único
+    private String senha;          // Senha de acesso
+    private Date datanasc;         // Data de nascimento
+    private boolean ativo;         // Status de ativação
+
+    // Construtor padrão
+    public Usuario() {
     }
 
-    public Usuario(int pkUsuario, String nome, String email, String senha, Date dataNascimento, boolean ativo) {
-        this.pkUsuario = pkUsuario;
+    // Construtor completo
+    public Usuario(int pkusuario, String nome, String email, String senha, Date datanasc, boolean ativo) {
+        this.pkusuario = pkusuario;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.dataNascimento = dataNascimento;
+        this.datanasc = datanasc;
         this.ativo = ativo;
     }
 
-    public int getPkUsuario() {
-        return pkUsuario;
+    // Getters e Setters
+    public int getPkusuario() {
+        return pkusuario;
     }
 
-    public void setPkUsuario(int pkUsuario) {
-        this.pkUsuario = pkUsuario;
+    public void setPkusuario(int pkusuario) {
+        this.pkusuario = pkusuario;
     }
 
     public String getNome() {
@@ -56,12 +61,12 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Date getDataNascimento() {
-        return dataNascimento;
+    public Date getDatanasc() {
+        return datanasc;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setDatanasc(Date datanasc) {
+        this.datanasc = datanasc;
     }
 
     public boolean isAtivo() {
@@ -70,5 +75,12 @@ public class Usuario {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    /**
+     * Retorna o status do usuário como texto.
+     */
+    public String getStatusTexto() {
+        return ativo ? "Ativo" : "Inativo";
     }
 }

@@ -63,5 +63,19 @@ public class Util {
         }
         return hashSHA1;
     }
+    public static String converterDateToString(Date data) {
+        //construa o formato que quero transformar o texto
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String texto = "";
 
+        try {
+            //tenta converter a String em Date baseado no foormato
+            //construido anteriormente
+            texto = formato.format(data);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao formatar a data");
+        }
+        return texto;
+
+    }
 }

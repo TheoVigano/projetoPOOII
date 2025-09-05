@@ -219,7 +219,7 @@ public class FrCadUsuario extends javax.swing.JDialog {
         usu.setNome(edtNome.getText());
         usu.setEmail(edtEmail.getText());
         usu.setSenha(Util.calcularHash(new String(edtSenha.getPassword())));
-        usu.setDataNascimento(Util.converterStringToDate(edtDataNascimento.getText()));
+        usu.setDatanasc(Util.converterStringToDate(edtDataNascimento.getText()));
         usu.setAtivo(chkAtivo.isSelected());
         
         UsuarioController controller = new UsuarioController();
@@ -255,10 +255,10 @@ public class FrCadUsuario extends javax.swing.JDialog {
             return false;
         }
         
-        if (!edtEmail.getText().matches("^[a-z0-9_.]+@[a-z0-9]_.]+.[a-z]+$")) {
-            JOptionPane.showMessageDialog(null, "O campo 'email' não possui o formato");
-            return false;
-        }
+        if (!edtEmail.getText().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+        JOptionPane.showMessageDialog(null, "O campo 'email' não possui o formato");
+        return false;
+}
         
         if (!edtDataNascimento.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")) {
             JOptionPane.showMessageDialog(null, "Data inválida!");

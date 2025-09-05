@@ -109,45 +109,54 @@ public class FrLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntrarMouseClicked
 
     private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             logar();
         }
     }//GEN-LAST:event_btnEntrarKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         Util objeto = new Util();
-       this.setIconImage(Util.getIcone());
+        this.setIconImage(Util.getIcone());
     }//GEN-LAST:event_formWindowOpened
 
-    private boolean verificarCampo(){
-        if(edtUsuario.getText().isEmpty()){
+    private boolean verificarCampo() {
+        if (edtUsuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Usuário em branco");
             return false;
         }
-        if(new String(edtSenha.getPassword()).isEmpty()){
+        if (new String(edtSenha.getPassword()).isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Senha em branco");
             return false;
         }
         return true;
     }
 
-
     private void logar() {
+        //verifica se os campos estão preenchidos
+        if (!verificarCampo()) {
+            return;
+        }
 
+        //pega os dados digitados
         String usuario = edtUsuario.getText();
         String senha = new String(edtSenha.getPassword());
 
+        //criptografa a senha
+        senha = Util.calcularHash(senha);
+
+        //instancia o controller
         UsuarioController controller = new UsuarioController();
 
+        //verifica se o usuário existe no banco
         if (controller.autenticar(usuario, senha)) {
+            //abre a tela principal
             FrMenu telaMenu = new FrMenu();
             telaMenu.setVisible(true);
             this.setVisible(false);
         } else {
-            //mensagem de usuario nao encontrado
-            JOptionPane.showMessageDialog(rootPane, "Usuario não encontrado");
-        };
-        // verificar se tem ou não aquele usuário
+            //mensagem de erro
+            JOptionPane.showMessageDialog(rootPane, "Usuário não encontrado");
+        }
     }
 
     public static void main(String args[]) {
