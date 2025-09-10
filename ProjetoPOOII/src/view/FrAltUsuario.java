@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import model.Usuario;
 import utils.Util;
 import java.util.List;
+import java.io.File;
+import javax.swing.Icon;
 
 /**
  *
@@ -55,12 +57,14 @@ public class FrAltUsuario extends javax.swing.JDialog {
         edtSenha = new javax.swing.JPasswordField();
         edtDataNascimento = new javax.swing.JFormattedTextField();
         chkAtivo = new javax.swing.JCheckBox();
-        imgTitulo = new javax.swing.JLabel();
         lblConfirmeSenha = new javax.swing.JLabel();
         edtConfirmeSenha = new javax.swing.JPasswordField();
         lblCodigo = new javax.swing.JLabel();
         edtCodigo = new javax.swing.JTextField();
         btnAlterarSenha = new javax.swing.JButton();
+        pnlFoto = new javax.swing.JPanel();
+        imgFoto = new javax.swing.JLabel();
+        btnEscImagem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alteração de Usuário - Projeto POO");
@@ -75,7 +79,7 @@ public class FrAltUsuario extends javax.swing.JDialog {
 
         lblTitulo.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
         lblTitulo.setText("Alterar Usuário");
-        pnlPrincipal.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+        pnlPrincipal.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, -1, -1));
 
         lblNome.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         lblNome.setText("Nome");
@@ -101,10 +105,14 @@ public class FrAltUsuario extends javax.swing.JDialog {
                 btnSalvarMouseClicked(evt);
             }
         });
-        pnlPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, 130, -1));
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+        pnlPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 570, 130, -1));
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,7 +124,7 @@ public class FrAltUsuario extends javax.swing.JDialog {
                 btnCancelarActionPerformed(evt);
             }
         });
-        pnlPrincipal.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 130, -1));
+        pnlPrincipal.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 570, 130, -1));
 
         edtEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         pnlPrincipal.add(edtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 250, -1));
@@ -136,9 +144,6 @@ public class FrAltUsuario extends javax.swing.JDialog {
         chkAtivo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         chkAtivo.setText("Ativo");
         pnlPrincipal.add(chkAtivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
-
-        imgTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit_user.png"))); // NOI18N
-        pnlPrincipal.add(imgTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         lblConfirmeSenha.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         lblConfirmeSenha.setText("Confirme a senha");
@@ -165,6 +170,39 @@ public class FrAltUsuario extends javax.swing.JDialog {
         });
         pnlPrincipal.add(btnAlterarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 120, 30));
 
+        pnlFoto.setBackground(new java.awt.Color(153, 153, 153));
+        pnlFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout pnlFotoLayout = new javax.swing.GroupLayout(pnlFoto);
+        pnlFoto.setLayout(pnlFotoLayout);
+        pnlFotoLayout.setHorizontalGroup(
+            pnlFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFotoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(imgFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        pnlFotoLayout.setVerticalGroup(
+            pnlFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFotoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(imgFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlPrincipal.add(pnlFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 110, 130));
+
+        btnEscImagem.setText("Escolher Imagem");
+        btnEscImagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEscImagemMouseClicked(evt);
+            }
+        });
+        btnEscImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEscImagemActionPerformed(evt);
+            }
+        });
+        pnlPrincipal.add(btnEscImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,8 +213,8 @@ public class FrAltUsuario extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -236,7 +274,29 @@ public class FrAltUsuario extends javax.swing.JDialog {
     edtDataNascimento.setText(
             Util.converterDateToString(usu.getDatanasc()));
     chkAtivo.setSelected(usu.isAtivo());
+    imgFoto.setIcon(usu.getImagem());
   }//GEN-LAST:event_formWindowOpened
+
+    private void btnEscImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEscImagemMouseClicked
+        //escolher imagem
+        File arquivo = Util.escolherImagem();
+
+        //carregar a imagem
+        if (arquivo != null) {
+            Icon icone = Util.converterFileToIcon(arquivo);
+
+            Icon iconNovo = Util.redimensionarImageIcon(icone, 108, 128);
+            imgFoto.setIcon(iconNovo);
+        }
+    }//GEN-LAST:event_btnEscImagemMouseClicked
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnEscImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscImagemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEscImagemActionPerformed
 
   private void gravar() {
     //validar o preenchimento dos campos
@@ -364,6 +424,7 @@ public class FrAltUsuario extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarSenha;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEscImagem;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chkAtivo;
     private javax.swing.JTextField edtCodigo;
@@ -372,7 +433,7 @@ public class FrAltUsuario extends javax.swing.JDialog {
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtNome;
     private javax.swing.JPasswordField edtSenha;
-    private javax.swing.JLabel imgTitulo;
+    private javax.swing.JLabel imgFoto;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblConfirmeSenha;
     private javax.swing.JLabel lblDataNascimento;
@@ -380,6 +441,7 @@ public class FrAltUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlFoto;
     private javax.swing.JPanel pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 }

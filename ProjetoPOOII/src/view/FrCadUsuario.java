@@ -143,11 +143,17 @@ public class FrCadUsuario extends javax.swing.JDialog {
         pnlFoto.setLayout(pnlFotoLayout);
         pnlFotoLayout.setHorizontalGroup(
             pnlFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+            .addGroup(pnlFotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imgFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlFotoLayout.setVerticalGroup(
             pnlFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+            .addGroup(pnlFotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imgFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pnlPrincipal.add(pnlFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 490, 110, 130));

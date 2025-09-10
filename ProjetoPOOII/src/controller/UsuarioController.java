@@ -1,5 +1,8 @@
     package controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +13,8 @@ import model.Usuario;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.nio.charset.StandardCharsets;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import utils.Util;
 
 public class UsuarioController {
@@ -54,7 +59,7 @@ public class UsuarioController {
             comando.setString(3, usu.getSenha());
             comando.setDate(4, new java.sql.Date(usu.getDatanasc().getTime()));
             comando.setBoolean(5, usu.isAtivo());
-            comando.setBytes(6, Util.converterIconToBytes(usu.getImagem()));
+            comando.setBytes(6, Util.converterIconToBytes(usu.getImagem()   ));
 
             comando.executeUpdate();
             return true;
@@ -120,9 +125,18 @@ public class UsuarioController {
         usu.setDatanasc(resultado.getDate("dataNasc")); 
         usu.setAtivo(resultado.getBoolean("ativo")); 
         
+        
+        byte[] bytes = resultado.getBytes("Imagem");
+        
+        if(bytes != null){
+            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            BufferedImage imagem = ImageIO.read(bis);
+            usu.setImagem(new ImageIcon (imagem));
+        }
+        
         lista.add(usu);
       }
-    } catch (SQLException e) {
+    } catch (SQLException | IOException e) {
       //caso ocorra um erro relacionado ao banco de dados
       //exibe popup com o erro
       JOptionPane.showMessageDialog(null, e.getMessage());      
@@ -175,6 +189,41 @@ public class UsuarioController {
       
       //executa o comando 
       comando.executeUpdate();
+      return true;
+    } catch (SQLException e) {
+      //caso ocorra um erro relacionado ao banco de dados
+      //exibe popup com o erro
+      JOptionPane.showMessageDialog(null, e.getMessage());      
+    } finally {
+      //depois de executar o try, dando erro ou não executa o finally
+      gerenciador.fecharConexao(comando);
+    }  
+    return false;
+  }
+    public boolean deletar(int pkUsuario){
+    //Montar o comando a ser executado
+    //os ? são variáveis que são preenchidas mais adiante
+    String sql = "DELETE FROM TBUSUARIO "
+               + " WHERE pkUsuario = ? "; //1
+    
+    //Cria uma instância do gerenciador de conexão
+    //(conexão com o banco de dados),
+    GerenciadorConexao gerenciador = new GerenciadorConexao();
+    
+    //Declara as variáveis como nulas antes do try 
+    //para poder usar no finally
+    PreparedStatement comando = null;
+    
+    try{
+      //prepara o sql, analisando o formato e as váriaveis
+      comando = gerenciador.prepararComando(sql);
+
+      //define o valor de cada variável(?) pela posição em que aparece no sql
+      comando.setInt(1, pkUsuario);      
+      
+      //executa o comando 
+      comando.executeUpdate();
+      
       return true;
     } catch (SQLException e) {
       //caso ocorra um erro relacionado ao banco de dados
