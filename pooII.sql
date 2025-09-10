@@ -14,4 +14,6 @@ INSERT INTO tbusuario(nome, email, senha, datanasc, ativo) VALUES
 ('theo', 'theo@gmail.com', 'musica', '2007-08-13', true);
 UPDATE tbusuario SET senha = SHA1('musica');
 
+ALTER TABLE tbusuario ADD imagem BLOB;
+
 
