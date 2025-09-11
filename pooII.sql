@@ -24,7 +24,7 @@ CREATE TABLE tbartista (
 CREATE TABLE tbmusica (
     pkmusica INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
-    duracao TIME,
+    duracao VARCHAR(10),
     genero VARCHAR(40),
     ano INT
 );
