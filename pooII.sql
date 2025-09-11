@@ -36,7 +36,7 @@ CREATE TABLE tbplaylist (
     FOREIGN KEY (fkusuario) REFERENCES tbusuario(pkusuario)
 );
 
-CREATE TABLE tbcolaboração (
+CREATE TABLE tbcolaboracao (
     fk_musica INT,
     fk_artista INT,
     PRIMARY KEY (fk_musica, fk_artista),
