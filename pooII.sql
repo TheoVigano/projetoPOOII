@@ -36,7 +36,7 @@ CREATE TABLE tbplaylist (
     FOREIGN KEY (fkusuario) REFERENCES tbusuario(pkusuario)
 );
 
-CREATE TABLE tbmusica_artista (
+CREATE TABLE tbcolaboração (
     fk_musica INT,
     fk_artista INT,
     PRIMARY KEY (fk_musica, fk_artista),
@@ -44,7 +44,7 @@ CREATE TABLE tbmusica_artista (
     FOREIGN KEY (fk_artista) REFERENCES tbartista(pkartista)
 );
 
-CREATE TABLE tbmusica_playlist (
+CREATE TABLE tbplaylist_item (
     fk_musica INT,
     fk_playlist INT,
     PRIMARY KEY (fk_musica, fk_playlist),
@@ -54,5 +54,3 @@ CREATE TABLE tbmusica_playlist (
 
 
 ALTER TABLE tbusuario ADD imagem BLOB;
-
-
